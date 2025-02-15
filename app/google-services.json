@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "243678305379",
+    "firebase_url": "https://app-bocatas-75085-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "app-bocatas-75085",
+    "storage_bucket": "app-bocatas-75085.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243678305379:android:67ebe00ef084ce29ac2c56",
+        "android_client_info": {
+          "package_name": "com.example.bocatas2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfRBvPrAx1bRqRG9M1u8BJK38i76lEThY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
