@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.example.bocatas2.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -46,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     getUserRole()
                     startActivity(Intent(this, MainActivity::class.java))
-                    finish()
                 } else {
                     Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -61,11 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val role = snapshot.child("role").value.toString()
-                        when(role) {
-                            "admin" -> Toast.makeText(this@LoginActivity, "Soy Admin", Toast.LENGTH_SHORT).show()
-                            "alumno" -> Toast.makeText(this@LoginActivity, "Soy un alumno", Toast.LENGTH_SHORT).show()
-                            else -> Toast.makeText(this@LoginActivity, "Rol no reconocido", Toast.LENGTH_SHORT).show()
-                        }
+                        navigateToMainActivity(role)
                     } else {
                         Toast.makeText(this@LoginActivity, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                     }
@@ -78,5 +74,12 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this@LoginActivity, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun navigateToMainActivity(role: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("userRole", role)
+        startActivity(intent)
+        finish()
     }
 }

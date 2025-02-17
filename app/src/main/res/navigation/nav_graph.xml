@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/alumnoFragment">
+
+    <fragment
+        android:id="@+id/alumnoFragment"
+        android:name="com.example.bocatas2.ui.fragments.AlumnoFragment"
+        android:label="Alumno"
+        tools:layout="@layout/fragment_alumno" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.bocatas2.ui.fragments.AdminFragment"
+        android:label="Admin"
+        tools:layout="@layout/fragment_admin" />
+</navigation>
