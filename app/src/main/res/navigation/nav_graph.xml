@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/alumnoFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/alumnoFragment"
@@ -15,4 +15,9 @@
         android:name="com.example.bocatas2.ui.fragments.AdminFragment"
         android:label="Admin"
         tools:layout="@layout/fragment_admin" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bocatas2.ui.fragments.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
