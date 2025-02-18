@@ -12,6 +12,10 @@ android {
         viewBinding = true
     }
 
+    dataBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.bocatas2"
         minSdk = 28

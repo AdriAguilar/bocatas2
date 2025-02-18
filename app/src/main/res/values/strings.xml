@@ -8,4 +8,5 @@
     <string name="elige_un_bocadillo">Elige un bocadillo</string>
     <string name="caliente">Caliente</string>
     <string name="frio">Frío</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
 </resources>

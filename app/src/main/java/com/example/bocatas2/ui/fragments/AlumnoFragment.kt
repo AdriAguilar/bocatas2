@@ -1,12 +1,10 @@
 package com.example.bocatas2.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bocatas2.R
@@ -30,6 +28,8 @@ class AlumnoFragment : Fragment() {
 
         val navController = childFragmentManager.findFragmentById(binding.navHostAlumno.id)
             ?.let { it as NavHostFragment }?.navController
+
+        binding.logoutBtn.setOnClickListener { findNavController().navigate(R.id.loginFragment) }
 
         binding.pedirBocataBtn.setOnClickListener { navController?.navigate(R.id.pedirBocataFragment) }
         binding.historialBtn.setOnClickListener { navController?.navigate(R.id.historialFragment) }
