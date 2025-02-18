@@ -8,6 +8,10 @@ android {
     namespace = "com.example.bocatas2"
     compileSdk = 35
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.bocatas2"
         minSdk = 28
