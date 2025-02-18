@@ -29,6 +29,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caliente"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/calienteBtn"
+        app:layout_constraintEnd_toEndOf="@+id/calienteBtn"
+        app:layout_constraintStart_toStartOf="@+id/calienteBtn"
+        app:layout_constraintTop_toTopOf="@+id/calienteBtn" />
+
     <Button
         android:id="@+id/frioBtn"
         android:layout_width="150dp"
@@ -41,5 +54,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frio"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/frioBtn"
+        app:layout_constraintEnd_toEndOf="@+id/frioBtn"
+        app:layout_constraintStart_toStartOf="@+id/frioBtn"
+        app:layout_constraintTop_toTopOf="@+id/frioBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
