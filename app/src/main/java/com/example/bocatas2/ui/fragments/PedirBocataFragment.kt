@@ -121,7 +121,7 @@ class PedirBocataFragment : Fragment() {
                     if (pedidoExistente != null) {
                         val pedidoId = pedidoExistente.key ?: ""
                         val userId = pedidoExistente.child("user_id").value as? String ?: ""
-                        val bocataId = pedidoExistente.child("bocata_id").value as? String ?: ""
+                        val bocataId = pedidoExistente.child("bocadillo_id").value as? String ?: ""
                         val fecha = pedidoExistente.child("fecha").value as? String ?: ""
 
                         val qrBitmap = generarQR(pedidoId, userId, bocataId, fecha)
@@ -154,8 +154,9 @@ class PedirBocataFragment : Fragment() {
 
                 if (pedidoId != null) {
                     val pedidoData = mapOf(
+                        "id" to pedidoId,
                         "user_id" to userId,
-                        "bocata_id" to bocata.id,
+                        "bocadillo_id" to bocata.id,
                         "coste_total" to bocata.coste,
                         "fecha" to today
                     )
