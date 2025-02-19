@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.MenuFragment">
-
+    android:orientation="vertical"
+    tools:context=".ui.fragments.MenuFragment"
+    android:layout_marginTop="48dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Menú"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_menu"
         android:layout_width="match_parent"
