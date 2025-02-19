@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bocatas2.adapters.PedidosAdapter
 import com.example.bocatas2.databinding.FragmentHistorialBinding
 import com.example.bocatas2.models.Pedido
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class HistorialFragment : Fragment() {
@@ -18,6 +19,7 @@ class HistorialFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PedidosAdapter
     private val pedidos = mutableListOf<Pedido>()
@@ -39,8 +41,12 @@ class HistorialFragment : Fragment() {
     }
 
     private fun cargarPedidos() {
+        auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("pedidos")
-        database.addValueEventListener(object : ValueEventListener {
+
+        val userId = auth.currentUser?.uid
+        val query = database.orderByChild("user_id").equalTo(userId)
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 pedidos.clear()
                 for (pedidoSnapshot in snapshot.children) {
