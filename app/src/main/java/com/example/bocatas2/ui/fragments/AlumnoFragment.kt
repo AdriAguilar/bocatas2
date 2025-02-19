@@ -9,11 +9,14 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bocatas2.R
 import com.example.bocatas2.databinding.FragmentAlumnoBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class AlumnoFragment : Fragment() {
 
     private var _binding: FragmentAlumnoBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,10 +29,16 @@ class AlumnoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
+
         val navController = childFragmentManager.findFragmentById(binding.navHostAlumno.id)
             ?.let { it as NavHostFragment }?.navController
 
-        binding.logoutBtn.setOnClickListener { findNavController().navigate(R.id.loginFragment) }
+        binding.logoutBtn.setOnClickListener {
+            auth.signOut()
+            requireActivity().finish()
+            startActivity(requireActivity().intent)
+        }
 
         binding.pedirBocataBtn.setOnClickListener { navController?.navigate(R.id.pedirBocataFragment) }
         binding.historialBtn.setOnClickListener { navController?.navigate(R.id.historialFragment) }
