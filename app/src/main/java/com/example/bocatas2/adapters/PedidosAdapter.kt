@@ -32,7 +32,7 @@ class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<Pe
         holder.tvFecha.text = "Fecha: ${pedido.fecha}"
         obtenerBocata(pedido.bocadillo_id) { bocata ->
             if (bocata != null) {
-                holder.tvSandwich.text = "Bocadillo: ${bocata.nombre}"
+                holder.tvSandwich.text = "${bocata.nombre} - ${bocata.tipo.toTitleCase()}"
             }
         }
         holder.tvCosteTotal.text = "Coste Total: ${pedido.coste_total.toEuroFormat()}"
@@ -53,6 +53,11 @@ class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<Pe
             callback(null)
             println("Error al obtener el bocadillo: ${e.message}")
         }
+    }
+
+    private fun String.toTitleCase(): String {
+        return this.split(" ")
+            .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
     }
 
     private fun Double.toEuroFormat(): String {
