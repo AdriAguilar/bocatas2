@@ -65,6 +65,9 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.7")
 
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
