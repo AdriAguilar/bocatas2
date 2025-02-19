@@ -60,14 +60,23 @@ class PedirBocataFragment : Fragment() {
         }
 
         val userId = auth.currentUser?.uid
+        if (userId != null) {
+            verificarPedidoExistente(userId) { exists, qrBitmap ->
+                if (exists && qrBitmap != null) {
+                    binding.qr.setImageBitmap(qrBitmap)
+                    Toast.makeText(requireContext(), "Ya has realizado un pedido para hoy", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         binding.calienteBtn.setOnClickListener {
-            if (userId != null) {
-                hacerPedido(userId, bCaliente)
+            if (auth.currentUser != null) {
+                hacerPedido(auth.currentUser!!.uid, bCaliente)
             }
         }
         binding.frioBtn.setOnClickListener {
-            if (userId != null) {
-                hacerPedido(userId, bFrio)
+            if (auth.currentUser != null) {
+                hacerPedido(auth.currentUser!!.uid, bFrio)
             }
         }
     }
