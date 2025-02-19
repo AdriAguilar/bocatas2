@@ -72,26 +72,19 @@ class PedirBocataFragment : Fragment() {
 
     private fun verificarPedidoExistente(userId: String, onComplete: (exists: Boolean) -> Unit) {
         val pedidosRef = database.child("pedidos")
-        val fechaActual = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
         val query = pedidosRef.orderByChild("user_id").equalTo(userId)
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val pedidoFecha = snapshot.child("fecha").value.toString()
-
-                    val pedidoFechaDate = LocalDate.parse(pedidoFecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                    val fechaActualDate = LocalDate.parse(fechaActual, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                    if (fechaActualDate.isEqual(pedidoFechaDate)) {
-                        Log.d("Funciona", "fecha iguales")
-                        onComplete(true)
-                    } else {
-                        Log.d("No funciona", "No coinciden fechas")
-                        onComplete(false)
+                try {
+                    val pedidoExistente = snapshot.children.any { pedidoSnapshot ->
+                        val fecha = pedidoSnapshot.child("fecha").value as? String
+                        fecha != null && LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd")) == LocalDate.now()
                     }
-                } else {
-                    Log.d("No funciona", "No se encontro pedido")
+                    onComplete(pedidoExistente)
+                } catch (e: Exception) {
+                    println("Error al procesar los datos: ${e.message}")
                     onComplete(false)
                 }
             }
