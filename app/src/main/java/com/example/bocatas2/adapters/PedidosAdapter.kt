@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bocatas2.R
+import com.example.bocatas2.models.Bocadillo
 import com.example.bocatas2.models.Pedido
+import com.google.firebase.database.FirebaseDatabase
+import java.text.NumberFormat
+import java.util.Locale
 
 class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder>() {
 
@@ -26,9 +30,33 @@ class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<Pe
         val pedido = pedidos[position]
         holder.tvPedidoId.text = "Pedido ID: ${pedido.id}"
         holder.tvFecha.text = "Fecha: ${pedido.fecha}"
-        holder.tvSandwich.text = "Bocadillo: ${pedido.bocadillo_id}"
-        holder.tvCosteTotal.text = "Coste Total: €${pedido.coste_total}"
+        obtenerBocata(pedido.bocadillo_id) { bocata ->
+            if (bocata != null) {
+                holder.tvSandwich.text = "Bocadillo: ${bocata.nombre}"
+            }
+        }
+        holder.tvCosteTotal.text = "Coste Total: ${pedido.coste_total.toEuroFormat()}"
     }
 
     override fun getItemCount(): Int = pedidos.size
+
+    private fun obtenerBocata(bocataId: String, callback: (Bocadillo?) -> Unit) {
+        val database = FirebaseDatabase.getInstance().reference.child("bocadillos").child(bocataId)
+        database.get().addOnSuccessListener { snapshot ->
+            if (snapshot.exists()) {
+                val bocadillo = snapshot.getValue(Bocadillo::class.java)
+                callback(bocadillo)
+            } else {
+                callback(null)
+            }
+        }.addOnFailureListener { e ->
+            callback(null)
+            println("Error al obtener el bocadillo: ${e.message}")
+        }
+    }
+
+    private fun Double.toEuroFormat(): String {
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+        return numberFormat.format(this)
+    }
 }

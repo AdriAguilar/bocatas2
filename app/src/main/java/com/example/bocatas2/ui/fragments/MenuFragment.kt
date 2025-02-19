@@ -35,7 +35,7 @@ class MenuFragment : Fragment() {
 
         cargarBocadillos()
 
-        return view
+        return binding.root
     }
 
     private fun cargarBocadillos() {

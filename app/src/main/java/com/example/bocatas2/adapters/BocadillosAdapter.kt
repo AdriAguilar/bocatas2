@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bocatas2.R
 import com.example.bocatas2.models.Bocadillo
+import java.text.NumberFormat
+import java.util.Locale
 
 class BocadillosAdapter(private val bocadillos: List<Bocadillo>) : RecyclerView.Adapter<BocadillosAdapter.BocadilloViewHolder>() {
 
@@ -23,10 +25,20 @@ class BocadillosAdapter(private val bocadillos: List<Bocadillo>) : RecyclerView.
 
     override fun onBindViewHolder(holder: BocadilloViewHolder, position: Int) {
         val bocadillo = bocadillos[position]
-        holder.tvNombre.text = bocadillo.nombre
+        holder.tvNombre.text = "${bocadillo.nombre}"
         holder.tvDescripcion.text = bocadillo.descripcion
-        holder.tvCoste.text = "€${bocadillo.coste}"
+        holder.tvCoste.text = "${bocadillo.dia.toTitleCase()} - ${bocadillo.tipo.toTitleCase()} - ${bocadillo.coste.toEuroFormat()}"
     }
 
     override fun getItemCount(): Int = bocadillos.size
+
+    private fun String.toTitleCase(): String {
+        return this.split(" ")
+            .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+    }
+
+    private fun Double.toEuroFormat(): String {
+        val numberFormat = NumberFormat.getCurrencyInstance(Locale("es", "ES"))
+        return numberFormat.format(this)
+    }
 }

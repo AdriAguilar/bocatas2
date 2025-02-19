@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre: "
+        android:textStyle="bold"
         android:textSize="16sp" />
 
     <TextView
@@ -25,5 +26,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Coste: "
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 </LinearLayout>
