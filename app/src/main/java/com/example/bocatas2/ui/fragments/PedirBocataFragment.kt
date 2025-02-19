@@ -77,10 +77,11 @@ class PedirBocataFragment : Fragment() {
         _binding = null
     }
 
-    private fun generarQR(pedidoId: String, userId: String, fecha: String): Bitmap? {
+    private fun generarQR(pedidoId: String, userId: String, bocataId: String, fecha: String): Bitmap? {
         val qrData = mapOf(
             "pedidoId" to pedidoId,
             "userId" to userId,
+            "bocadilloId" to bocataId,
             "fecha" to fecha
         )
         val jsonData = qrData.toString()
@@ -111,9 +112,10 @@ class PedirBocataFragment : Fragment() {
                     if (pedidoExistente != null) {
                         val pedidoId = pedidoExistente.key ?: ""
                         val userId = pedidoExistente.child("user_id").value as? String ?: ""
+                        val bocataId = pedidoExistente.child("bocata_id").value as? String ?: ""
                         val fecha = pedidoExistente.child("fecha").value as? String ?: ""
 
-                        val qrBitmap = generarQR(pedidoId, userId, fecha)
+                        val qrBitmap = generarQR(pedidoId, userId, bocataId, fecha)
                         onComplete(true, qrBitmap)
                     } else {
                         onComplete(false, null)
@@ -151,7 +153,7 @@ class PedirBocataFragment : Fragment() {
 
                     pedidosRef.child(pedidoId).setValue(pedidoData)
                         .addOnSuccessListener {
-                            val qrBitmap = generarQR(pedidoId, userId, today)
+                            val qrBitmap = generarQR(pedidoId, userId, bocata.id, today)
                             binding.qr.setImageBitmap(qrBitmap)
                             Toast.makeText(requireContext(), "Pedido realizado exitosamente.", Toast.LENGTH_SHORT).show()
                         }
