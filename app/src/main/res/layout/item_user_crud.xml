@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
@@ -13,41 +13,49 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <LinearLayout
-            android:id="@+id/ll_datos_bocadillo"
+        <TextView
+            android:id="@+id/tv_nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="8dp"
+            android:text="Nombre"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintWidth_percent="0.7">
+            app:layout_constraintEnd_toStartOf="@+id/btn_editar"
+            app:layout_constraintHorizontal_chainStyle="packed" />
 
-            <TextView
-                android:id="@+id/tv_nombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre del Bocadillo"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_nombre"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nombre"
+            app:layout_constraintEnd_toStartOf="@+id/btn_editar" />
 
-            <TextView
-                android:id="@+id/tv_descripcion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descripción del bocadillo"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+        <TextView
+            android:id="@+id/tv_role"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Rol:"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_email"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
-            <TextView
-                android:id="@+id/tv_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bocadillo ID: "
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="ID:"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_role"
+            app:layout_constraintTop_toBottomOf="@+id/tv_role"/>
+
 
         <ImageButton
             android:id="@+id/btn_editar"
@@ -55,7 +63,7 @@
             android:layout_height="32dp"
             app:srcCompat="@drawable/edit"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Editar Bocadillo"
+            android:contentDescription="Editar Usuario"
             app:tint="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/btn_eliminar"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,11 +77,10 @@
             android:layout_height="32dp"
             app:srcCompat="@drawable/delete"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Eliminar Bocadillo"
+            android:contentDescription="Eliminar Usuario"
             app:tint="@color/red"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -22,7 +22,15 @@
         android:id="@+id/usersCrudFragment"
         android:name="com.example.bocatas2.ui.fragments.UsersCrudFragment"
         android:label="fragment_users_crud"
-        tools:layout="@layout/fragment_users_crud" />
+        tools:layout="@layout/fragment_users_crud" >
+        <action
+            android:id="@+id/action_usersCrudFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment">
+            <argument
+                android:name="user"
+                app:argType="com.example.bocatas2.models.User"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/addBocataFragment"
         android:name="com.example.bocatas2.ui.fragments.AddBocataFragment"
@@ -35,5 +43,19 @@
         <argument
             android:name="bocadillo"
             app:argType="com.example.bocatas2.models.Bocadillo" />
+    </fragment>
+    <fragment
+        android:id="@+id/addUserFragment"
+        android:name="com.example.bocatas2.ui.fragments.AddUserFragment"
+        android:label="fragment_add_user"
+        tools:layout="@layout/fragment_add_user" />
+    <fragment
+        android:id="@+id/editUserFragment"
+        android:name="com.example.bocatas2.ui.fragments.EditUserFragment"
+        android:label="fragment_edit_user"
+        tools:layout="@layout/fragment_edit_user">
+        <argument
+            android:name="user"
+            app:argType="com.example.bocatas2.models.User"/>
     </fragment>
 </navigation>

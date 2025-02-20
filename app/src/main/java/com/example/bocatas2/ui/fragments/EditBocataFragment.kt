@@ -80,7 +80,7 @@ class EditBocataFragment : Fragment() {
         )
         database.child(id).updateChildren(updates)
             .addOnSuccessListener {
-                Toast.makeText(requireContext(), "Bocadillo actualizado exitosamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Bocadillo actualizado exitósamente", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             }
             .addOnFailureListener { e ->

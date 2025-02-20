@@ -16,4 +16,8 @@
         <item>Jueves</item>
         <item>Viernes</item>
     </string-array>
+    <string-array name="rol">
+        <item>admin</item>
+        <item>alumno</item>
+    </string-array>
 </resources>
