@@ -8,18 +8,22 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="16dp">
 
+        <!-- Contenedor para los datos del bocadillo -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ll_datos_bocadillo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingRight="8dp"
-            android:layout_weight="1">
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.7">
 
             <TextView
                 android:id="@+id/tv_nombre"
@@ -45,32 +49,34 @@
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:layout_marginTop="8dp">
 
-            <ImageButton
-                android:id="@+id/btn_editar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/profile"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Editar Bocadillo"
-                app:tint="@color/black" />
+        <!-- Botón de edición -->
+        <ImageButton
+            android:id="@+id/btn_editar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/edit"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Editar Bocadillo"
+            app:tint="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/btn_eliminar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="8dp" />
 
-            <ImageButton
-                android:id="@+id/btn_eliminar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/menu"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="@color/b_caliente"
-                android:contentDescription="Eliminar Bocadillo"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-    </LinearLayout>
+        <!-- Botón de eliminación -->
+        <ImageButton
+            android:id="@+id/btn_eliminar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Eliminar Bocadillo"
+            app:tint="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
