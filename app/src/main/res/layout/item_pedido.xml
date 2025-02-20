@@ -1,37 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<LinearLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="vertical"-->
+<!--    android:padding="8dp">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_pedido_id"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Pedido ID: "-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="16sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_fecha"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Fecha: "-->
+<!--        android:textSize="14sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_sandwich"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Bocadillo: "-->
+<!--        android:textSize="14sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_coste_total"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Coste Total: "-->
+<!--        android:textSize="14sp" />-->
+<!--</LinearLayout>-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/tv_pedido_id"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pedido ID: "
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tv_fecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha: "
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_pedido_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedido ID: "
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_sandwich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bocadillo: "
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_bocata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bocadillo: "
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
 
-    <TextView
-        android:id="@+id/tv_coste_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Coste Total: "
-        android:textSize="14sp" />
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha: "
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/tv_coste_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: "
+                android:textSize="14sp"
+                android:textAlignment="textEnd"
+                android:layout_weight="1"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

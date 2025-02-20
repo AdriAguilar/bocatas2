@@ -15,6 +15,8 @@ class BocadillosAdapter(private val bocadillos: List<Bocadillo>) : RecyclerView.
     class BocadilloViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvNombre: TextView = itemView.findViewById(R.id.tv_nombre_bocadillo)
         val tvDescripcion: TextView = itemView.findViewById(R.id.tv_descripcion)
+        val tvDia: TextView = itemView.findViewById(R.id.tv_dia)
+        val tvTipo: TextView = itemView.findViewById(R.id.tv_tipo)
         val tvCoste: TextView = itemView.findViewById(R.id.tv_coste)
     }
 
@@ -25,9 +27,11 @@ class BocadillosAdapter(private val bocadillos: List<Bocadillo>) : RecyclerView.
 
     override fun onBindViewHolder(holder: BocadilloViewHolder, position: Int) {
         val bocadillo = bocadillos[position]
-        holder.tvNombre.text = "${bocadillo.nombre}"
+        holder.tvNombre.text = bocadillo.nombre
         holder.tvDescripcion.text = bocadillo.descripcion
-        holder.tvCoste.text = "${bocadillo.dia.toTitleCase()} - ${bocadillo.tipo.toTitleCase()} - ${bocadillo.coste.toEuroFormat()}"
+        holder.tvDia.text = bocadillo.dia.toTitleCase()
+        holder.tvTipo.text = bocadillo.tipo.toTitleCase()
+        holder.tvCoste.text = bocadillo.coste.toEuroFormat()
     }
 
     override fun getItemCount(): Int = bocadillos.size

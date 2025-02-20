@@ -16,8 +16,8 @@ class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<Pe
 
     class PedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPedidoId: TextView = itemView.findViewById(R.id.tv_pedido_id)
+        val tvBocata: TextView = itemView.findViewById(R.id.tv_bocata)
         val tvFecha: TextView = itemView.findViewById(R.id.tv_fecha)
-        val tvSandwich: TextView = itemView.findViewById(R.id.tv_sandwich)
         val tvCosteTotal: TextView = itemView.findViewById(R.id.tv_coste_total)
     }
 
@@ -32,10 +32,10 @@ class PedidosAdapter(private val pedidos: List<Pedido>): RecyclerView.Adapter<Pe
         holder.tvFecha.text = "Fecha: ${pedido.fecha}"
         obtenerBocata(pedido.bocadillo_id) { bocata ->
             if (bocata != null) {
-                holder.tvSandwich.text = "${bocata.nombre} - ${bocata.tipo.toTitleCase()}"
+                holder.tvBocata.text = "${bocata.nombre} - ${bocata.tipo.toTitleCase()}"
             }
         }
-        holder.tvCosteTotal.text = "Coste Total: ${pedido.coste_total.toEuroFormat()}"
+        holder.tvCosteTotal.text = "Total: ${pedido.coste_total.toEuroFormat()}"
     }
 
     override fun getItemCount(): Int = pedidos.size
