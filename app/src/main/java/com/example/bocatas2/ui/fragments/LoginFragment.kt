@@ -1,5 +1,6 @@
 package com.example.bocatas2.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.bocatas2.R
+import com.example.bocatas2.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
@@ -30,14 +38,14 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("users")
 
-        emailText = rootView.findViewById(R.id.email)
-        pwText = rootView.findViewById(R.id.password)
-        loginButton = rootView.findViewById(R.id.loginBtn)
+        emailText = binding.email
+        pwText = binding.password
+        loginButton = binding.loginBtn
 
         loginButton.setOnClickListener {
             val email = emailText.text.toString().trim()
@@ -51,7 +59,15 @@ class LoginFragment : Fragment() {
             login(email, password)
         }
 
-        return rootView
+        binding.biometricBtn.setOnClickListener {
+            if (verificarDisponibilidadBiometrica(requireContext())) {
+                mostrarPromptBiometrico()
+            } else {
+                Toast.makeText(requireContext(), "La autenticación biométrica no está disponible.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return binding.root
     }
 
     override fun onResume() {
@@ -60,15 +76,82 @@ class LoginFragment : Fragment() {
         pwText.text.clear()
     }
 
+    private fun verificarDisponibilidadBiometrica(context: Context): Boolean {
+        val biometricManager = BiometricManager.from(context)
+        return when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> true
+            else -> false
+        }
+    }
+
+    private fun mostrarPromptBiometrico() {
+        val executor = ContextCompat.getMainExecutor(requireContext())
+        val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
+            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                println("Autenticación biométrica exitosa")
+                iniciarSesionConFirebase()
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+                Toast.makeText(requireContext(), "Error de autenticación: $errString", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                Toast.makeText(requireContext(), "Autenticación fallida", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Autenticación Biométrica")
+            .setSubtitle("Inicia sesión con tu huella digital")
+            .setDescription("Coloca tu dedo en el lector de huellas para continuar.")
+            .setNegativeButtonText("Cancelar")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+    private fun iniciarSesionConFirebase() {
+        val sharedPref = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val email = sharedPref.getString("email", null)
+        val password = sharedPref.getString("password", null)
+
+        if (email != null && password != null) {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        getUserRole()
+                    } else {
+                        Toast.makeText(context, "Error al iniciar sesión con Firebase: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        } else {
+            Toast.makeText(context, "No se encontraron credenciales almacenadas.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    guardarCredenciales(email, password)
                     getUserRole()
                 } else {
                     Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun guardarCredenciales(email: String, password: String) {
+        val sharedPref = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("email", email)
+            putString("password", password)
+            apply()
+        }
     }
 
     private fun getUserRole() {
