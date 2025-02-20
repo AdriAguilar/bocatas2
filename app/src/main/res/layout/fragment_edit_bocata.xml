@@ -11,7 +11,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear Nuevo Bocadillo"
+        android:text="Editar Bocadillo"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -122,11 +122,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_guardar"
+        android:id="@+id/btn_guardar_cambios"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar"
+        android:text="Guardar Cambios"
         android:textColor="@color/white"
         android:backgroundTint="@color/black"
         android:layout_marginTop="32dp"

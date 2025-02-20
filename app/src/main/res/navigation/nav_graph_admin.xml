@@ -9,7 +9,15 @@
         android:id="@+id/bocatasCrudFragment"
         android:name="com.example.bocatas2.ui.fragments.BocatasCrudFragment"
         android:label="fragment_bocatas_crud"
-        tools:layout="@layout/fragment_bocatas_crud" />
+        tools:layout="@layout/fragment_bocatas_crud">
+        <action
+            android:id="@+id/action_bocatasCrudFragment_to_editBocataFragment"
+            app:destination="@id/editBocataFragment">
+            <argument
+                android:name="bocadillo"
+                app:argType="com.example.bocatas2.models.Bocadillo"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/usersCrudFragment"
         android:name="com.example.bocatas2.ui.fragments.UsersCrudFragment"
@@ -19,4 +27,13 @@
         android:id="@+id/addBocataFragment"
         android:name="com.example.bocatas2.ui.fragments.AddBocataFragment"
         android:label="AddBocataFragment" />
+    <fragment
+        android:id="@+id/editBocataFragment"
+        android:name="com.example.bocatas2.ui.fragments.EditBocataFragment"
+        android:label="fragment_edit_bocata"
+        tools:layout="@layout/fragment_edit_bocata">
+        <argument
+            android:name="bocadillo"
+            app:argType="com.example.bocatas2.models.Bocadillo" />
+    </fragment>
 </navigation>

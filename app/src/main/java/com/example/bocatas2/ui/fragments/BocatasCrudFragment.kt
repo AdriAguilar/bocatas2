@@ -15,7 +15,6 @@ import com.example.bocatas2.models.Bocadillo
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.*
 
-
 class BocatasCrudFragment : Fragment() {
 
     private var _binding: FragmentBocatasCrudBinding? = null
@@ -72,7 +71,8 @@ class BocatasCrudFragment : Fragment() {
     }
 
     private fun onEditClick(bocadillo: Bocadillo) {
-//        findNavController().navigate()
+        val action = BocatasCrudFragmentDirections.actionBocatasCrudFragmentToEditBocataFragment(bocadillo)
+        findNavController().navigate(action)
     }
 
     private fun onDeleteClick(bocadillo: Bocadillo) {
