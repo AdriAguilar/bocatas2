@@ -9,4 +9,11 @@
     <string name="caliente">Caliente</string>
     <string name="frio">Frío</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string-array name="dias">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+    </string-array>
 </resources>

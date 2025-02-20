@@ -15,4 +15,8 @@
         android:name="com.example.bocatas2.ui.fragments.UsersCrudFragment"
         android:label="fragment_users_crud"
         tools:layout="@layout/fragment_users_crud" />
+    <fragment
+        android:id="@+id/addBocataFragment"
+        android:name="com.example.bocatas2.ui.fragments.AddBocataFragment"
+        android:label="AddBocataFragment" />
 </navigation>
