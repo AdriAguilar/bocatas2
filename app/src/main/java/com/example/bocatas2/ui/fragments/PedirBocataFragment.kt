@@ -34,8 +34,8 @@ class PedirBocataFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
-    private lateinit var bCaliente: Bocadillo
-    private lateinit var bFrio: Bocadillo
+    private var bCaliente: Bocadillo? = null
+    private var bFrio: Bocadillo? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +57,10 @@ class PedirBocataFragment : Fragment() {
         obtenerBocadillos(bocatasRef) { bocatas ->
             bCaliente = filtrarBocatas(bocatas, dia, "caliente")
             bFrio = filtrarBocatas(bocatas, dia, "frio")
+
+            if (bCaliente == null || bFrio == null) {
+                Toast.makeText(requireContext(), "No hay bocadillos disponibles para hoy.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val userId = auth.currentUser?.uid
@@ -70,13 +74,13 @@ class PedirBocataFragment : Fragment() {
         }
 
         binding.calienteBtn.setOnClickListener {
-            if (auth.currentUser != null) {
-                hacerPedido(auth.currentUser!!.uid, bCaliente)
+            if (auth.currentUser != null && bCaliente != null) {
+                hacerPedido(auth.currentUser!!.uid, bCaliente!!)
             }
         }
         binding.frioBtn.setOnClickListener {
-            if (auth.currentUser != null) {
-                hacerPedido(auth.currentUser!!.uid, bFrio)
+            if (auth.currentUser != null && bFrio != null) {
+                hacerPedido(auth.currentUser!!.uid, bFrio!!)
             }
         }
     }
@@ -208,7 +212,12 @@ class PedirBocataFragment : Fragment() {
         return today.format(formatter).lowercase().replaceFirstChar { it.titlecase() }
     }
 
-    private fun filtrarBocatas(bocadillos: List<Bocadillo>, dia: String, tipo: String): Bocadillo {
-        return bocadillos.filter { it.dia.equals(dia, ignoreCase = true) && it.tipo.equals(tipo, ignoreCase = true) }[0]
+    private fun filtrarBocatas(bocadillos: List<Bocadillo>, dia: String, tipo: String): Bocadillo? {
+        val bocatasFiltrados = bocadillos.filter { it.dia.equals(dia, ignoreCase = true) && it.tipo.equals(tipo, ignoreCase = true) }
+        return if (bocatasFiltrados.isNotEmpty()) {
+            bocatasFiltrados[0]
+        } else {
+            null
+        }
     }
 }
